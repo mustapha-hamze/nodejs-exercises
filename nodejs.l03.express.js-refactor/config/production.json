@@ -1,0 +1,6 @@
+{
+    "name": "overrided name by production",
+    "mail": {
+        "host": "pro-mail-server"
+    }
+}

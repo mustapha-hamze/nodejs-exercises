@@ -1,0 +1,10 @@
+const os = require('os')
+
+var totalMemory = os.totalmem
+var freeMemory = os.freemem
+
+console.log("Total Memory: " + totalMemory + " | Free Memory: " + freeMemory)
+
+// OR
+
+console.log(`Total Memory: ${totalMemory} | Free Memory: ${freeMemory}`)

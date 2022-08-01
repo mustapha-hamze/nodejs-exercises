@@ -1,0 +1,6 @@
+{
+    "name": "overrided name by development",
+    "mail": {
+        "host": "dev-mail-server"
+    }
+}
