@@ -30,7 +30,7 @@ async function createCourse() {
     })
 
     const result = await course.save()
-    console.log(course)
+    console.log(result)
 }
 
 //createCourse()
