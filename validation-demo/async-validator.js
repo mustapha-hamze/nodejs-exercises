@@ -21,12 +21,26 @@ const courseSchema = mongoose.Schema({
         enum: ['web', 'network', 'mobile'] // the string must one of these array item
     },
     author: String,
-    tags: [ String ],
+    tags: {
+        type: Array,
+        validate: {
+            isAsync: true,
+            validator: function(value) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                      const result = value && value.length > 0;
+                      resolve(result);
+                    }, 4000);
+                });
+            },
+            message: 'each course has to has atleast one tag'
+        }
+    },
     date: { type: String, default: Date.now},
     isPublished: Boolean,
     price: {
         type: Number,
-        required: function() { return this.isPublished }, // conditinal required, when the isPublished is true, price will be required
+        required: function() { return this.isPublished }, // conditional required, when the isPublished is true, price will be required
         min: 10,
         max: 200
     }
@@ -36,20 +50,15 @@ const Course = mongoose.model('Course', courseSchema)
 
 async function createCourse() {
     const course = new Course({
-        name: '.Net MEUO',
+        name: '.Net MAUI',
         author: 'Mosh',
         category: 'mobile',
-        tags: ['.net', 'frontend'],
+        tags: [],
         isPublished: true,
         price: 35
     })
 
     try {
-        // course.validate((err)=>{
-        //     if(err) {
-        //         // do some logic
-        //     }
-        // })
         const result = await course.save()
         console.log(result)
     } catch (ex) {
